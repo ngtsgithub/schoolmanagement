@@ -1,0 +1,240 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition for ngts - scm
+  version: v0
+servers:
+  - url: http://localhost:8080
+    description: opea api proxy for deploying in choreo
+paths:
+  /scm/api/student/{id}:
+    get:
+      tags:
+        - student-controller
+      operationId: getById_5
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    put:
+      tags:
+        - student-controller
+      operationId: update_5
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentCreateRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - student-controller
+      operationId: delete_5
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/student:
+    post:
+      tags:
+        - student-controller
+      operationId: save_5
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentCreateRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/student/all:
+    get:
+      tags:
+        - student-controller
+      operationId: getAllStudents
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /auth/api/signup:
+    post:
+      tags:
+        - auth-controller
+      operationId: registerUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignupRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /auth/api/signout:
+    post:
+      tags:
+        - auth-controller
+      operationId: logoutUser
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /auth/api/signin:
+    post:
+      tags:
+        - auth-controller
+      operationId: authenticateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /auth/api/regUsers:
+    get:
+      tags:
+        - auth-controller-to-get-all-user
+      operationId: getAllregisteredusers
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+
+components:
+  schemas:
+    SignupRequest:
+      required:
+        - email
+        - password
+        - username
+      type: object
+      properties:
+        username:
+          maxLength: 20
+          minLength: 3
+          type: string
+        email:
+          maxLength: 50
+          minLength: 0
+          type: string
+        role:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        password:
+          maxLength: 40
+          minLength: 6
+          type: string
+    LoginRequest:
+      required:
+        - password
+        - username
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    StudentCreateRequest:
+      required:
+        - address
+        - birthday
+        - bloodGroup
+        - classId
+        - dormitoryId
+        - dormitoryRoomNumber
+        - email
+        - fatherName
+        - motherName
+        - name
+        - password
+        - phone
+        - religion
+        - roll
+        - sex
+        - studentId
+        - transportId
+      properties:
+        name:
+          maxLength: 20
+          minLength: 3
+          type: string
+        email:
+          maxLength: 50
+          minLength: 0
+          type: string
+        fatherName:
+          maxLength: 50
+          minLength: 0
+          type: string
+        motherName:
+          maxLength: 50
+          minLength: 0
+          type: string
+        phone:
+          maxLength: 50
+          minLength: 0
+          type: string
+        sex:
+          maxLength: 50
+          minLength: 0
+          type: string
+        birthday:
+          maxLength: 50
+          minLength: 0
+          type: string
+        address:
+          maxLength: 50
+          minLength: 0
+          type: string
